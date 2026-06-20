@@ -18,49 +18,49 @@ const STAGES: {
   desc: string;
   status: "real" | "simulated";
 }[] = [
-  {
-    icon: Camera,
-    title: "CCTV Feed Ingestion",
-    desc: "Traffic camera frames captured across BTP-monitored junctions",
-    status: "simulated",
-  },
-  {
-    icon: ScanSearch,
-    title: "Vision Detection",
-    desc: "Vehicle / violation type identification (helmet, parking, lane)",
-    status: "simulated",
-  },
-  {
-    icon: Database,
-    title: "Violation Logging",
-    desc: "Structured record: junction, vehicle type, timestamp, location",
-    status: "real",
-  },
-  {
-    icon: TrendingUp,
-    title: "ML Forecasting Engine",
-    desc: "CatBoost regression model forecasting violation intensity patterns",
-    status: "real",
-  },
-  {
-    icon: BrainCircuit,
-    title: "Risk Scoring Engine",
-    desc: "PDI + 24h Time-Aware Risk computed per junction, per hour",
-    status: "real",
-  },
-  {
-    icon: Users,
-    title: "Officer Allocation Engine",
-    desc: "Risk-proportional deployment across available officers",
-    status: "real",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Deployment Recommendation",
-    desc: "Ranked, explainable enforcement plan delivered to command center",
-    status: "real",
-  },
-];
+    {
+      icon: Camera,
+      title: "CCTV Feed Ingestion",
+      desc: "Traffic camera frames captured across BTP-monitored junctions",
+      status: "simulated",
+    },
+    {
+      icon: ScanSearch,
+      title: "Vision Detection",
+      desc: "Vehicle / violation type identification (helmet, parking, lane)",
+      status: "simulated",
+    },
+    {
+      icon: Database,
+      title: "Violation Logging",
+      desc: "Structured record: junction, vehicle type, timestamp, location",
+      status: "real",
+    },
+    {
+      icon: TrendingUp,
+      title: "ML Forecasting Engine",
+      desc: "CatBoost regression model forecasting violation intensity patterns",
+      status: "real",
+    },
+    {
+      icon: BrainCircuit,
+      title: "Risk Scoring Engine",
+      desc: "PDI + 24h Time-Aware Risk computed per junction, per hour",
+      status: "real",
+    },
+    {
+      icon: Users,
+      title: "Officer Allocation Engine",
+      desc: "Risk-proportional deployment across available officers",
+      status: "real",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Deployment Recommendation",
+      desc: "Ranked, explainable enforcement plan delivered to command center",
+      status: "real",
+    },
+  ];
 
 export function AIEngine() {
   const { junctions, cityAvgPdi, hourlyRiskData } = useApp();
@@ -145,8 +145,7 @@ export function AIEngine() {
                       : "rgba(160,174,192,0.05)",
 
                     border:
-                      `1px solid ${
-                        isReal
+                      `1px solid ${isReal
                         ? "rgba(0,212,255,0.3)"
                         : "rgba(160,174,192,0.2)"
                       }`,
@@ -268,7 +267,7 @@ export function AIEngine() {
 
           <div
             className="text-[10px] font-mono leading-relaxed"
-            style={{ color:"#a0aec0" }}
+            style={{ color: "#a0aec0" }}
           >
 
             PDI = 0.45·Freq + 0.25·Peak<br />
@@ -300,7 +299,7 @@ export function AIEngine() {
 
           <div
             className="text-[10px] font-mono leading-relaxed"
-            style={{ color:"#a0aec0" }}
+            style={{ color: "#a0aec0" }}
           >
 
             Model: CatBoostRegressor<br />
@@ -336,7 +335,7 @@ export function AIEngine() {
 
           <div
             className="text-[10px] font-mono leading-relaxed"
-            style={{ color:"#a0aec0" }}
+            style={{ color: "#a0aec0" }}
           >
 
             officers(j) = round(<br />
@@ -372,7 +371,7 @@ export function AIEngine() {
           <div className="text-[10px] text-muted-foreground">
 
             See:
-            <span style={{ color:"#00d4ff" }}>
+            <span style={{ color: "#00d4ff" }}>
               {" "}Junction Intelligence → "Why was this hotspot selected?"
             </span>
 
