@@ -46,6 +46,15 @@ export function Planner() {
 
   const allocData = top10.map((j) => ({ name: j.name, officers: j.officers, risk: j.liveRisk }));
 
+  const naiveOfficersEach = Math.floor(officers / top10.length) || 0;
+  const naiveRemainder = officers - naiveOfficersEach * top10.length;
+  const naiveCoveredRisk = top10.reduce((sum, j, idx) => {
+    const naiveOfficers = naiveOfficersEach + (idx < naiveRemainder ? 1 : 0);
+    return sum + (naiveOfficers >= 1 ? j.liveRisk : 0);
+  }, 0);
+  const naiveCoverage = totalRiskTop10 > 0 ? (naiveCoveredRisk / totalRiskTop10) * 100 : 0;
+  const coverageGain = coverage - naiveCoverage;
+
   // Dynamic hour comparison for active junctions.
   // FIX #4: each hour group gets its OWN risk-proportional officer
   // allocation (via the same shared computeAllocation used elsewhere),
@@ -97,6 +106,29 @@ export function Planner() {
         <Kpi label="Avg Risk Score" value={<AnimatedNumber value={avgRisk} decimals={3} />} color="#f6ad55" />
         <Kpi label="Deployment Coverage" value={<AnimatedNumber value={coverage} decimals={0} suffix="%" />} color="#68d391" />
       </div>
+
+      <Card className="p-5" style={{ background: "linear-gradient(135deg, #16213e 0%, #0f1a33 100%)", borderColor: "rgba(0,212,255,0.3)" }} hover={false}>
+        <SectionTitle right={<span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "rgba(0,212,255,0.15)", color: "#00d4ff" }}>BEFORE / AFTER OPTIMIZATION</span>}>
+          Impact of AI-Optimized Deployment
+        </SectionTitle>
+        <div className="grid grid-cols-2 gap-6">
+          <div className="rounded-lg p-4" style={{ background: "rgba(252,79,79,0.06)", border: "1px solid rgba(252,79,79,0.2)" }}>
+            <div className="text-[10px] tracking-widest uppercase mb-1" style={{ color: "#fc4f4f" }}>Without TraffIQ</div>
+            <div className="text-xs text-muted-foreground mb-3">Equal-split deployment ({officers} officers, ignoring risk)</div>
+            <div className="text-3xl font-bold" style={{ color: "#fc4f4f" }}>{naiveCoverage.toFixed(0)}%</div>
+            <div className="text-[11px] text-muted-foreground mt-1">High-risk coverage</div>
+          </div>
+          <div className="rounded-lg p-4" style={{ background: "rgba(104,211,145,0.06)", border: "1px solid rgba(104,211,145,0.25)" }}>
+            <div className="text-[10px] tracking-widest uppercase mb-1" style={{ color: "#68d391" }}>With TraffIQ</div>
+            <div className="text-xs text-muted-foreground mb-3">Risk-proportional AI deployment ({officers} officers)</div>
+            <div className="text-3xl font-bold" style={{ color: "#68d391" }}>{coverage.toFixed(0)}%</div>
+            <div className="text-[11px] text-muted-foreground mt-1">High-risk coverage · <span style={{ color: "#68d391" }}>▲ +{coverageGain.toFixed(0)}%</span></div>
+          </div>
+        </div>
+        <div className="text-[10px] text-muted-foreground mt-3 italic">
+          Both figures computed from identical real risk data and the same officer count — only the allocation strategy differs.
+        </div>
+      </Card>
 
       <div className="grid grid-cols-5 gap-6">
         <div className="col-span-3">

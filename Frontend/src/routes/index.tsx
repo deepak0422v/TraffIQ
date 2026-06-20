@@ -5,6 +5,7 @@ import { CommandCenter } from "@/components/traffiq/CommandCenter";
 import { GeoMap } from "@/components/traffiq/GeoMap";
 import { Planner } from "@/components/traffiq/Planner";
 import { JunctionIntel } from "@/components/traffiq/JunctionIntel";
+import { AIEngine } from "@/components/traffiq/AIEngine";
 import { Simulator } from "@/components/traffiq/Simulator";
 
 export const Route = createFileRoute("/")({
@@ -39,6 +40,7 @@ function PageSwitch() {
     case "geo": return <GeoMap />;
     case "planner": return <Planner />;
     case "junction": return <JunctionIntel />;
+    case "ai_engine": return <AIEngine />;
     case "simulator": return <Simulator />;
   }
 }

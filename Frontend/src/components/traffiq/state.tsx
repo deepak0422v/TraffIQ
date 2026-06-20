@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useMemo, type ReactNode } from "react";
 import { type Junction, type HotspotType, type Priority } from "@/lib/traffiq-data";
 
-export type PageKey = "command" | "geo" | "planner" | "junction" | "simulator";
+export type PageKey = "command" | "geo" | "planner" | "junction" | "ai_engine" | "simulator";
 
 interface AppState {
   page: PageKey;

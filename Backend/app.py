@@ -693,7 +693,7 @@ elif page == "📊 Junction Intelligence":
             st.markdown(f"""
             <div class='insight-box'>
                 <div style='color:#00d4ff; font-weight:700; margin-bottom:8px;'>
-                    💡 AI Recommendation for {current_hour:02d}:00 IST
+                    💡 Deployment Recommendation for {current_hour:02d}:00 IST
                 </div>
                 <p style='color:#ffffff; font-size:1.05rem; margin:0;'>
                     Deploy <span style='color:#00d4ff; font-weight:800;'>{officers_needed} officer{'s' if officers_needed>1 else ''}</span>

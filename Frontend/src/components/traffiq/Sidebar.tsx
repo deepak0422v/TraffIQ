@@ -1,6 +1,6 @@
 import { useApp, type PageKey } from "./state";
 import { Slider } from "@/components/ui/slider";
-import { LayoutDashboard, Map, Users, Activity, FlaskConical } from "lucide-react";
+import { LayoutDashboard, Map, Users, Activity, FlaskConical, BrainCircuit } from "lucide-react";
 import logo from "@/assets/traffic-police-logo.png";
 
 const NAV: { key: PageKey; label: string; Icon: typeof LayoutDashboard }[] = [
@@ -8,6 +8,7 @@ const NAV: { key: PageKey; label: string; Icon: typeof LayoutDashboard }[] = [
   { key: "geo", label: "Geo Intelligence Map", Icon: Map },
   { key: "planner", label: "Enforcement Planner", Icon: Users },
   { key: "junction", label: "Junction Intelligence", Icon: Activity },
+  { key: "ai_engine", label: "Traffic Intelligence Engine", Icon: BrainCircuit },
   { key: "simulator", label: "Scenario Simulator (Experimental)", Icon: FlaskConical },
 ];
 

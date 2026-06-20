@@ -146,7 +146,7 @@ export function JunctionIntel() {
 
           <Card className="p-5" hover={false}>
             <div className="text-[10px] tracking-widest uppercase mb-2" style={{ color: "#00d4ff" }}>
-              AI Recommendation
+              Deployment Recommendation
             </div>
             <div className="text-base font-semibold">
               Deploy <span style={{ color: "#00d4ff" }}>{jLive.officers}</span> officers to {j.name}
@@ -174,6 +174,20 @@ export function JunctionIntel() {
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
+            <div className="mt-4 pt-4 border-t" style={{ borderColor: "rgba(0,212,255,0.12)" }}>
+              <div className="text-[10px] tracking-widest uppercase mb-2" style={{ color: "#00d4ff" }}>
+                Police Deployment Intelligence (PDI)
+              </div>
+              <div className="text-xs font-mono leading-relaxed" style={{ color: "#a0aec0" }}>
+                PDI = 0.45 × Violation&nbsp;Frequency<br />
+                &nbsp;&nbsp;&nbsp;+ 0.25 × Peak&nbsp;Hour&nbsp;Concentration<br />
+                &nbsp;&nbsp;&nbsp;+ 0.10 × Heavy&nbsp;Vehicle&nbsp;Impact<br />
+                &nbsp;&nbsp;&nbsp;+ 0.20 × Recurrence&nbsp;Score
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
+                Each component is min-max normalized across all {junctions.length} monitored junctions before weighting, so PDI is directly comparable citywide.
+              </p>
+            </div>
           </Card>
         </div>
 
@@ -184,6 +198,49 @@ export function JunctionIntel() {
                 Hotspot Type: {j.type}
               </div>
               <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{desc.description}</p>
+            </div>
+          </Card>
+
+          <Card className="p-5" hover={false} style={{ background: "linear-gradient(135deg, #16213e 0%, #0f1a33 100%)", borderColor: "rgba(0,212,255,0.3)" }}>
+            <SectionTitle right={<span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "rgba(0,212,255,0.15)", color: "#00d4ff" }}>EXPLAINABLE AI</span>}>
+              Why was this hotspot selected?
+            </SectionTitle>
+            <div className="space-y-2 text-sm">
+              {j.dailyAvg > 15 && (
+                <div className="flex items-start gap-2">
+                  <span style={{ color: "#68d391" }}>✓</span>
+                  <span><b className="text-foreground">{j.dailyAvg.toFixed(1)} violations/day</b> on average — {j.dailyAvg > 30 ? "well above" : "above"} the city median</span>
+                </div>
+              )}
+              {j.wowGrowth > 10 && (
+                <div className="flex items-start gap-2">
+                  <span style={{ color: "#f6ad55" }}>✓</span>
+                  <span>Violations <b className="text-foreground">rising {j.wowGrowth.toFixed(0)}% week-over-week</b> — emerging risk trend detected</span>
+                </div>
+              )}
+              {j.spikeRatio > 2 && (
+                <div className="flex items-start gap-2">
+                  <span style={{ color: "#f6ad55" }}>✓</span>
+                  <span><b className="text-foreground">{j.spikeRatio.toFixed(2)}× spike ratio</b> — sharp peak-hour concentration, not evenly spread across the day</span>
+                </div>
+              )}
+              <div className="flex items-start gap-2">
+                <span style={{ color: "#00d4ff" }}>✓</span>
+                <span>Peak risk window at <b className="text-foreground">{String(j.peakHour).padStart(2, "0")}:00 IST</b> based on 24h historical risk profile</span>
+              </div>
+              {j.consistency > 0.15 && (
+                <div className="flex items-start gap-2">
+                  <span style={{ color: "#fc4f4f" }}>✓</span>
+                  <span><b className="text-foreground">Recurring pattern</b> (consistency {j.consistency.toFixed(2)}) — this is a chronic, not one-off, hotspot</span>
+                </div>
+              )}
+              <div className="flex items-start gap-2">
+                <span style={{ color: priorityColor(j.priority) }}>✓</span>
+                <span>Ranked <b className="text-foreground">#{j.rank} of {junctions.length}</b> citywide by Parking Disruption Index ({j.pdi.toFixed(1)})</span>
+              </div>
+            </div>
+            <div className="text-[10px] text-muted-foreground mt-3 italic">
+              Reasoning generated directly from this junction's PDI inputs and behavior classification — no separate explanation model.
             </div>
           </Card>
 

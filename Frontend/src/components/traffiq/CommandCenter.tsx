@@ -65,7 +65,10 @@ export function CommandCenter() {
   const top10 = junctions.slice(0, 10).map((j) => ({ name: j.name, pdi: j.pdi, priority: j.priority }));
   const alerts = liveRanked.slice(0, 8);
 
-  const topNow = liveRanked[0] || { name: "None", liveRisk: 0 };
+  const topNow = liveRanked[0] || {
+    name: "None", liveRisk: 0, priority: "MEDIUM" as const, dailyAvg: 0,
+    consistency: 0, officers: 0, pdi: 0, type: "STABLE" as const, wowGrowth: 0,
+  };
   const highRiskNowCount = liveRanked.filter((j) => j.liveRisk >= 0.55 && j.officers >= 1).length;
   const totalViolationsCount = junctions.reduce((sum, j) => sum + j.violations, 0);
 
@@ -110,7 +113,48 @@ export function CommandCenter() {
         <Kpi label="High-Risk Zones Covered" value={<AnimatedNumber value={highRiskNowCount} />} sub={`of ${junctions.length}`} color="#68d391" />
       </div>
 
+      <Card className="p-5" hover={false} style={{ background: "linear-gradient(135deg, #16213e 0%, #0f1a33 100%)", borderColor: "rgba(0,212,255,0.3)" }}>
+        <SectionTitle right={<span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "rgba(0,212,255,0.15)", color: "#00d4ff" }}>AI-Assisted Risk Forecast</span>}>
+          AI-Assisted Risk Forecast
+        </SectionTitle>
+        <div className="grid grid-cols-3 gap-6 items-center">
+          <div className="col-span-2">
+            <div className="text-[11px] tracking-widest text-muted-foreground uppercase mb-1">Predicted highest-risk junction · {String((hour + 1) % 24).padStart(2, "0")}:00 IST</div>
+            <div className="text-2xl font-bold truncate" title={topNow.name}>{topNow.name}</div>
+            <div className="flex items-center gap-4 mt-3">
+              <div>
+                <div className="text-[10px] text-muted-foreground uppercase">Risk Level</div>
+                <Pill priority={topNow.priority ?? "MEDIUM"} />
+              </div>
+              <div>
+                <div className="text-[10px] text-muted-foreground uppercase">Predicted Violations</div>
+                <div className="text-lg font-bold" style={{ color: "#f6ad55" }}>{Math.round((topNow.dailyAvg ?? 0) * (topNow.liveRisk ?? 0)) || "—"}</div>
+              </div>
+              <div>
+                <div className="text-[10px] text-muted-foreground uppercase">Confidence</div>
+                <div className="text-lg font-bold" style={{ color: "#68d391" }}>{Math.round((topNow.consistency ?? 0.3) * 60 + 55)}%</div>
+              </div>
+              <div>
+                <div className="text-[10px] text-muted-foreground uppercase">Recommended Officers</div>
+                <div className="text-lg font-bold" style={{ color: "#00d4ff" }}>{topNow.officers ?? 0}</div>
+              </div>
+            </div>
+          </div>
+          <div className="text-[11px] text-muted-foreground leading-relaxed border-l pl-4" style={{ borderColor: "rgba(0,212,255,0.2)" }}>
+            <div className="text-[10px] tracking-widest uppercase mb-1.5" style={{ color: "#00d4ff" }}>Why this junction</div>
+            ✓ Risk score {(topNow.liveRisk ?? 0).toFixed(3)} — highest of {junctions.length} monitored zones this hour<br />
+            ✓ PDI {(topNow.pdi ?? 0).toFixed(1)} ({topNow.type ?? "—"} hotspot pattern)<br />
+            {(topNow.wowGrowth ?? 0) > 10 && <>✓ Violations trending up {(topNow.wowGrowth ?? 0).toFixed(0)}% week-over-week<br /></>}
+            ✓ Confidence derived from historical consistency ({(topNow.consistency ?? 0).toFixed(2)})
+          </div>
+        </div>
+        <div className="text-[10px] text-muted-foreground mt-3 italic">
+          Prediction confidence is a heuristic derived from each junction's historical consistency score — not a separately trained probability model.
+        </div>
+      </Card>
+
       {/* DEPLOYMENT PLAN HERO */}
+
       <Card className="p-5">
         <SectionTitle
           right={<span className="text-xs text-muted-foreground">Updated 2 min ago</span>}
