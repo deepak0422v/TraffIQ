@@ -1,0 +1,146 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-critical: var(--critical);
+  --color-high: var(--high);
+  --color-medium: var(--medium);
+  --color-grid: var(--grid);
+  --font-sans: Inter, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #0f1117;
+  --foreground: #ffffff;
+  --card: #1a1f2e;
+  --card-foreground: #ffffff;
+  --popover: #1a1f2e;
+  --popover-foreground: #ffffff;
+  --primary: #00d4ff;
+  --primary-foreground: #0f1117;
+  --secondary: #1a1f2e;
+  --secondary-foreground: #ffffff;
+  --muted: #1a1f2e;
+  --muted-foreground: #a0aec0;
+  --accent: #1a1f2e;
+  --accent-foreground: #00d4ff;
+  --destructive: #fc4f4f;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 212, 255, 0.15);
+  --input: rgba(0, 212, 255, 0.2);
+  --ring: #00d4ff;
+  --critical: #fc4f4f;
+  --high: #f6ad55;
+  --medium: #68d391;
+  --grid: #2d3748;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: Inter, system-ui, sans-serif;
+  }
+}
+
+@utility glow-card {
+  background-color: #1a1f2e;
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 0.75rem;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+@utility glow-card-hover {
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 28px rgba(0, 212, 255, 0.18);
+    border-color: rgba(0, 212, 255, 0.35);
+  }
+}
+
+@utility pill-critical {
+  background-color: rgba(252, 79, 79, 0.15);
+  color: #fc4f4f;
+  border: 1px solid rgba(252, 79, 79, 0.4);
+}
+@utility pill-high {
+  background-color: rgba(246, 173, 85, 0.15);
+  color: #f6ad55;
+  border: 1px solid rgba(246, 173, 85, 0.4);
+}
+@utility pill-medium {
+  background-color: rgba(104, 211, 145, 0.15);
+  color: #68d391;
+  border: 1px solid rgba(104, 211, 145, 0.4);
+}
+
+/* Leaflet dark popups */
+.leaflet-container {
+  background: #0f1117 !important;
+  font-family: Inter, system-ui, sans-serif;
+}
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: #1a1f2e !important;
+  color: #fff !important;
+  border: 1px solid rgba(0,212,255,0.3);
+}
+.leaflet-control-attribution {
+  background: rgba(15,17,23,0.7) !important;
+  color: #a0aec0 !important;
+}
+.leaflet-control-attribution a { color: #00d4ff !important; }
+.leaflet-control-zoom a {
+  background: #1a1f2e !important;
+  color: #00d4ff !important;
+  border-color: rgba(0,212,255,0.3) !important;
+}
+
+/* Slider track tint */
+[data-slot="slider-track"] { background-color: rgba(0,212,255,0.15) !important; }
+[data-slot="slider-range"] { background-color: #00d4ff !important; }
+[data-slot="slider-thumb"] {
+  background-color: #00d4ff !important;
+  border-color: #00d4ff !important;
+  box-shadow: 0 0 10px rgba(0,212,255,0.6) !important;
+}
+
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.page-in { animation: page-in 0.35s ease-out; }
