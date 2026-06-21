@@ -61,7 +61,7 @@ export function CommandCenter() {
   });
 
   // 3. Dynamic metrics & subsets
-  const top5 = liveRanked.slice(0, 5);
+  const top5 = liveRanked.filter(j => j.officers > 0).slice(0, 5);
   const top10 = junctions.slice(0, 10).map((j) => ({ name: j.name, pdi: j.pdi, priority: j.priority }));
   const alerts = liveRanked.slice(0, 8);
 
