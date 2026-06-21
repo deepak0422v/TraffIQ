@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useMemo, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useMemo, useRef, type ReactNode } from "react";
 import { type Junction, type HotspotType, type Priority } from "@/lib/traffiq-data";
 
 export type PageKey = "command" | "geo" | "planner" | "junction" | "ai_engine" | "simulator";
@@ -87,9 +87,56 @@ function parseCSV(text: string) {
   });
 }
 
+// Returns the current hour (0-23) in IST (UTC+5:30), independent of the
+// browser/server's local timezone.
+function getCurrentISTHour(): number {
+  const now = new Date();
+  const istOffsetMinutes = 5 * 60 + 30;
+  const utcMinutes = now.getUTCHours() * 60 + now.getUTCMinutes();
+  const istMinutes = (utcMinutes + istOffsetMinutes) % (24 * 60);
+  return Math.floor(istMinutes / 60);
+}
+
+// Milliseconds until the next IST hour boundary — schedules the next
+// auto-update to land precisely on the hour rather than polling.
+function msUntilNextISTHour(): number {
+  const now = new Date();
+  const istOffsetMs = (5 * 60 + 30) * 60 * 1000;
+  const istNow = new Date(now.getTime() + istOffsetMs);
+  const msIntoHour =
+    istNow.getUTCMinutes() * 60 * 1000 +
+    istNow.getUTCSeconds() * 1000 +
+    istNow.getUTCMilliseconds();
+  return 60 * 60 * 1000 - msIntoHour;
+}
+
 export function AppProvider({ children }: { children: ReactNode }) {
   const [page, setPage] = useState<PageKey>("command");
-  const [hour, setHour] = useState(18);
+  // Live Controls: defaults to the real current IST hour and auto-advances
+  // every hour on the hour. The slider stays fully editable — setHour marks
+  // userOverrodeHour so auto-advance stops once the person manually picks
+  // an hour, instead of snapping their selection back to "now" mid-demo.
+  const [hour, setHourState] = useState(() => getCurrentISTHour());
+  const userOverrodeHour = useRef(false);
+  const setHour = (h: number) => {
+    userOverrodeHour.current = true;
+    setHourState(h);
+  };
+
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    const scheduleNext = () => {
+      timeoutId = setTimeout(() => {
+        if (!userOverrodeHour.current) {
+          setHourState(getCurrentISTHour());
+        }
+        scheduleNext();
+      }, msUntilNextISTHour());
+    };
+    scheduleNext();
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   const [officers, setOfficers] = useState(25);
 
   const [junctions, setJunctions] = useState<Junction[]>([]);

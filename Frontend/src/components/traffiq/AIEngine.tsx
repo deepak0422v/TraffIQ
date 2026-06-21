@@ -40,7 +40,7 @@ const STAGES: {
       icon: TrendingUp,
       title: "ML Forecasting Engine",
       desc: "CatBoost regression model forecasting violation intensity patterns",
-      status: "real",
+      status: "simulated",
     },
     {
       icon: BrainCircuit,
@@ -289,10 +289,13 @@ export function AIEngine() {
 
           <p className="text-xs text-muted-foreground leading-relaxed mb-3">
 
-            CatBoost Regressor predicts expected violation intensity using
-            historical traffic behavior, temporal patterns, lag features,
-            rolling averages, and recurrence indicators extracted from the
-            Bengaluru Traffic Police dataset.
+            CatBoost Regressor was trained to forecast violation intensity
+            from historical traffic behavior, temporal patterns, lag features,
+            rolling averages, and recurrence indicators. At R²=0.23, raw
+            count forecasting has a hard ceiling — violations depend on
+            patrol presence and enforcement behavior this dataset doesn't
+            capture. TraffIQ's live deployment pipeline instead runs on the
+            deterministic Risk Scoring + Allocation Engines below.
 
           </p>
 
