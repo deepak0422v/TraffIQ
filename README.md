@@ -5,13 +5,7 @@
 ---
 
 ## 🔗 Live Demo
-https://3bbf2740.traffiq-are.pages.dev
-
-## 🎥 Demo Video
-https://your-video-link
-
-## 📊 Presentation Deck
-https://your-ppt-link
+https://35bb2944.traffiq-are.pages.dev
 
 ## 🏆 Gridlock Hackathon 2.0 Submission
 
