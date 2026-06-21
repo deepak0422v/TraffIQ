@@ -5,7 +5,7 @@
 ---
 
 ## 🔗 Live Demo
-https://d11bc04b.traffiq-are.pages.dev
+https://3bbf2740.traffiq-are.pages.dev
 
 ## 🎥 Demo Video
 https://your-video-link
