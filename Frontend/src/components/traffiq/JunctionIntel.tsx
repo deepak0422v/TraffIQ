@@ -176,7 +176,7 @@ export function JunctionIntel() {
             </ResponsiveContainer>
             <div className="mt-4 pt-4 border-t" style={{ borderColor: "rgba(0,212,255,0.12)" }}>
               <div className="text-[10px] tracking-widest uppercase mb-2" style={{ color: "#00d4ff" }}>
-                Police Deployment Intelligence (PDI)
+                Parking Disruption Index (PDI)
               </div>
               <div className="text-xs font-mono leading-relaxed" style={{ color: "#a0aec0" }}>
                 PDI = 0.45 × Violation&nbsp;Frequency<br />
