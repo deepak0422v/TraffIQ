@@ -1,4 +1,3 @@
-````markdown
 # 🚦 TraffIQ — AI-Powered Traffic Enforcement Intelligence Platform
 
 > Transforming traffic enforcement from reactive monitoring to proactive, data-driven decision intelligence.
