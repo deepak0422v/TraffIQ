@@ -8,7 +8,7 @@ const NAV: { key: PageKey; label: string; Icon: typeof LayoutDashboard }[] = [
   { key: "geo", label: "Geo Intelligence Map", Icon: Map },
   { key: "planner", label: "Enforcement Planner", Icon: Users },
   { key: "junction", label: "Junction Intelligence", Icon: Activity },
-  { key: "ai_engine", label: "Traffic Intelligence Engine", Icon: BrainCircuit },
+  { key: "ai_engine", label: "TraffIQ Intelligence Engine", Icon: BrainCircuit },
   { key: "simulator", label: "Scenario Simulator (Experimental)", Icon: FlaskConical },
 ];
 
