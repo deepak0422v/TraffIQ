@@ -164,7 +164,7 @@ function Filter({
         <SelectTrigger className="bg-[#141925] border-[rgba(0,212,255,0.25)] text-foreground">
           <SelectValue />
         </SelectTrigger>
-        <SelectContent className="bg-[#1a1f2e] border-[rgba(0,212,255,0.25)] text-foreground">
+        <SelectContent className="bg-[#1a1f2e] border-[rgba(0,212,255,0.25)] text-foreground z-[1100]">
           {options.map((o) => (
             <SelectItem key={o} value={o}>{o}</SelectItem>
           ))}
