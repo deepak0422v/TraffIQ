@@ -55,6 +55,7 @@ export function Sidebar() {
           <div className="text-[10px] tracking-widest text-muted-foreground uppercase mb-3">
             Live Controls
           </div>
+          <p className="text-[10px] text-muted-foreground mt-1 mb-2">Applies to all pages — simulate a different hour or officer count</p>
 
           <div className="mb-5">
             <div className="flex justify-between text-xs mb-2">
