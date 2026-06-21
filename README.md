@@ -4,6 +4,15 @@
 
 ---
 
+## 🔗 Live Demo
+https://d11bc04b.traffiq-are.pages.dev
+
+## 🎥 Demo Video
+https://your-video-link
+
+## 📊 Presentation Deck
+https://your-ppt-link
+
 ## 🏆 Gridlock Hackathon 2.0 Submission
 
 TraffIQ is an AI-powered Traffic Enforcement Intelligence Platform designed to help traffic police departments identify emerging enforcement hotspots, prioritize intervention zones, and optimize officer deployment using historical traffic violation patterns and explainable risk intelligence.
